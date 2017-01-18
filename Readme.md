@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Ярослав Макаренко](https://up.htmlacademy.ru/javascript/8/user/234926).
-* Наставник: `Неизвестно`.
+* Наставник: [Константин Дарк](https://htmlacademy.ru/profile/id353169).
 
 ---
 
