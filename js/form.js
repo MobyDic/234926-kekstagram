@@ -18,21 +18,19 @@ formCancel.addEventListener('click', function() {
 
 // Переключение фильтров
 var photo = overlay.querySelector('.upload-form-preview');
-var photoFilters = overlay.querySelectorAll('input[name="upload-filter"]');
+var filter = overlay.querySelector('.upload-filter-controls');
+var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
 
-for (var i = 0; i < photoFilters.length; i++) {
-  listenFilter(photoFilters[i]);
-}
+filter.addEventListener('click', handleOnClickFilter);
 
-function listenFilter(filter) {
+function handleOnClickFilter(e) {
+    var activeFilter = findFilter(e.target);
 
-  filter.addEventListener('click', function() {
-    var activeFilter = findFilter(filter);
     for (var j = 0; j < photoFilters.length; j++) {
       photo.classList.remove(findFilter(photoFilters[j]));
     }
+
     photo.classList.add(activeFilter);
-  });
 }
 
 function findFilter(filter) {
@@ -48,7 +46,7 @@ var step = 25;
 
 decControl.addEventListener('click', function() {
   var val = valControl.value;
-  var nextval = +val.substr(0,val.length-1) - step;
+  var nextval = trimLast(val) - step;
 
   if (nextval < 0) nextval = 0;
   resize(nextval);
@@ -56,16 +54,20 @@ decControl.addEventListener('click', function() {
 
 incControl.addEventListener('click', function() {
   var val = valControl.value;
-  var nextval = +val.substr(0,val.length-1) + step;
+  var nextval = trimLast(val) + step;
 
   if (nextval > 100) nextval = 100;
 
   resize(nextval);
 });
 
+function trimLast(val) {
+  return +val.substr(0, val.length - 1);
+}
 
 function resize(size) {
-  imagePreview.style.transform = 'scale(' + (size+45)/100 + ')';
+  var scale = (size + 45) / 100;
+  imagePreview.style.transform = 'scale(' + scale + ')';
   valControl.value = size + '%';
 }
 
