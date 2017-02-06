@@ -31,6 +31,7 @@ function handleOnClickFilter(e) {
     }
 
     photo.classList.add(activeFilter);
+
 }
 
 function findFilter(filter) {
@@ -71,3 +72,47 @@ function resize(size) {
   valControl.value = size + '%';
 }
 
+// Работа с формой с клавиатуры
+
+var ENTER_KEY_CODE = 13;
+var ESCAPE_KEY_CODE = 27;
+var SPACE_KEY_CODE = 32;
+
+var isCloseEvent = function(evt) {
+  return evt.keyCode === ESCAPE_KEY_CODE;
+};
+
+var hideFormElement = function() {
+  overlay.classList.add('invisible');
+  selectImage.classList.remove('invisible');
+};
+
+document.addEventListener('keydown', function(evt) {
+  if (isCloseEvent(evt)){
+    hideFormElement();
+  }
+});
+
+var isActivateEvent = function(evt) {
+  return evt.keyCode && (evt.keyCode === ENTER_KEY_CODE || evt.keyCode === SPACE_KEY_CODE);
+};
+
+function handleOnKeydownFilter(e) {
+  e.target.click();
+  toggleRadio(e.target);
+}
+
+var filterLabels = filter.querySelectorAll('label');
+
+function toggleRadio(element) {
+  for (var k = 0; k < filterLabels.length; k++) {
+    filterLabels[k].setAttribute("aria-checked", "false");
+  }
+  element.setAttribute("aria-checked", "true");
+}
+
+filter.addEventListener('keydown', function(evt) {
+  if (isActivateEvent(evt)) {
+    handleOnKeydownFilter(evt);
+  }
+});
