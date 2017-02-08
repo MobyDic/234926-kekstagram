@@ -24,17 +24,24 @@ var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
 filter.addEventListener('click', handleOnClickFilter);
 
 function handleOnClickFilter(e) {
-    var activeFilter = findFilter(e.target);
+
+    var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute("for"));
+    console.log(activeFilter);
 
     for (var j = 0; j < photoFilters.length; j++) {
       photo.classList.remove(findFilter(photoFilters[j]));
     }
 
     photo.classList.add(activeFilter);
+
 }
 
 function findFilter(filter) {
   return 'filter-' + filter.value;
+}
+
+function replaceFilter(filter) {
+  return filter.replace('upload-','');
 }
 
 // Изменения масштаба
@@ -71,3 +78,47 @@ function resize(size) {
   valControl.value = size + '%';
 }
 
+// Работа с формой с клавиатуры
+var filterLabels = filter.querySelectorAll('label');
+var ENTER_KEY_CODE = 13;
+var ESCAPE_KEY_CODE = 27;
+var SPACE_KEY_CODE = 32;
+
+document.addEventListener('keydown', function(evt) {
+  if (isCloseEvent(evt)){
+    hideFormElement();
+  }
+});
+
+filter.addEventListener('keydown', function(evt) {
+  if (isActivateEvent(evt)) {
+    handleOnKeydownFilter(evt);
+  }
+});
+
+var hideFormElement = function() {
+  overlay.classList.add('invisible');
+  selectImage.classList.remove('invisible');
+};
+
+function handleOnKeydownFilter(e) {
+  handleOnClickFilter(e.target);
+  toggleRadio(e.target);
+}
+
+
+var isCloseEvent = function(evt) {
+  return evt.keyCode === ESCAPE_KEY_CODE;
+};
+
+
+var isActivateEvent = function(evt) {
+  return evt.keyCode && (evt.keyCode === ENTER_KEY_CODE || evt.keyCode === SPACE_KEY_CODE);
+};
+
+function toggleRadio(element) {
+  for (var k = 0; k < filterLabels.length; k++) {
+    filterLabels[k].setAttribute("aria-checked", "false");
+  }
+  element.setAttribute("aria-checked", "true");
+}
