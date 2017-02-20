@@ -1,4 +1,9 @@
-window.initializeFilters = function(e) {
+'use strict';
+
+window.initializeFilters = function (e) {
+  var photo = overlay.querySelector('.upload-form-preview');
+  var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
+
   var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute("for"));
   console.log(activeFilter);
 
@@ -9,10 +14,24 @@ window.initializeFilters = function(e) {
   photo.classList.add(activeFilter);
 }
 
-function findFilter(filter) {
+function findFilter (filter) {
   return 'filter-' + filter.value;
 }
 
-function replaceFilter(filter) {
+function replaceFilter( filter) {
   return filter.replace('upload-','');
+}
+
+function handleOnKeydownFilter(e) {
+  window.initializeFilters(e.target);
+  toggleRadio(e.target);
+}
+
+function toggleRadio (element) {
+  var filterLabels = filter.querySelectorAll('label');
+
+  for (var k = 0; k < filterLabels.length; k++) {
+    filterLabels[k].setAttribute("aria-checked", "false");
+  }
+  element.setAttribute("aria-checked", "true");
 }

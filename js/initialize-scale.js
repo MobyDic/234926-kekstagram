@@ -1,4 +1,6 @@
-window.initializeScale = function(element, step, valCont) {
+'use strict';
+
+window.initializeScale = function (element, step, valCont) {
   element.addEventListener('click', function() {
     var val = valCont.value;
     var toggle = element.classList.contains('upload-resize-controls-button-dec');
@@ -11,11 +13,11 @@ window.initializeScale = function(element, step, valCont) {
   });
 }
 
-function trimLast(val) {
+function trimLast (val) {
   return +val.substr(0, val.length - 1);
 }
 
-function resize(size) {
+function resize (size) {
   var scale = (size + 45) / 100;
   imagePreview.style.transform = 'scale(' + scale + ')';
   valControl.value = size + '%';
