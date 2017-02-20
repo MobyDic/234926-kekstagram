@@ -22,10 +22,6 @@ var filter = overlay.querySelector('.upload-filter-controls');
 filter.addEventListener('click', window.initializeFilters);
 
 var imagePreview = document.querySelector('.filter-image-preview');
-var decControl = overlay.querySelector('.upload-resize-controls-button-dec');
-var incControl = overlay.querySelector('.upload-resize-controls-button-inc');
-var valControl = overlay.querySelector('.upload-resize-controls-value');
-var step = 25;
 
 window.initializeScale(decControl, step, valControl);
 window.initializeScale(incControl, step, valControl);

@@ -1,6 +1,11 @@
 'use strict';
 
 window.initializeScale = function (element, step, valCont) {
+  var decControl = overlay.querySelector('.upload-resize-controls-button-dec');
+  var incControl = overlay.querySelector('.upload-resize-controls-button-inc');
+  var valControl = overlay.querySelector('.upload-resize-controls-value');
+  var step = 25;
+
   element.addEventListener('click', function() {
     var val = valCont.value;
     var toggle = element.classList.contains('upload-resize-controls-button-dec');
