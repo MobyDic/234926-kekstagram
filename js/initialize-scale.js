@@ -1,10 +1,6 @@
 'use strict';
 
 window.initializeScale = function (element, step, valCont) {
-  var decControl = overlay.querySelector('.upload-resize-controls-button-dec');
-  var incControl = overlay.querySelector('.upload-resize-controls-button-inc');
-  var valControl = overlay.querySelector('.upload-resize-controls-value');
-  var step = 25;
 
   element.addEventListener('click', function() {
     var val = valCont.value;
@@ -23,6 +19,7 @@ function trimLast (val) {
 }
 
 function resize (size) {
+  var imagePreview = document.querySelector('.filter-image-preview');
   var scale = (size + 45) / 100;
   imagePreview.style.transform = 'scale(' + scale + ')';
   valControl.value = size + '%';

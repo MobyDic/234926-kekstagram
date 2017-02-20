@@ -1,6 +1,19 @@
 'use strict';
 
-window.initializeFilters = function (e) {
+window.initializeFilters = (function () {
+
+  return function () {
+    filter.addEventListener('click', logicFilters);
+
+    filter.addEventListener('keydown', function (evt) {
+      if (window.isActivateEvent(evt)) {
+        window.logicFilters(evt.target);
+      }
+    });
+  }
+}) ();
+
+function logicFilters (e) {
   var photo = overlay.querySelector('.upload-form-preview');
   var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
 
@@ -12,6 +25,7 @@ window.initializeFilters = function (e) {
   }
 
   photo.classList.add(activeFilter);
+  toggleRadio(e.target);
 }
 
 function findFilter (filter) {
@@ -20,11 +34,6 @@ function findFilter (filter) {
 
 function replaceFilter( filter) {
   return filter.replace('upload-','');
-}
-
-function handleOnKeydownFilter(e) {
-  window.initializeFilters(e.target);
-  toggleRadio(e.target);
 }
 
 function toggleRadio (element) {
