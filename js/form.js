@@ -29,13 +29,30 @@ function hideFormElement() {
 
 
 // Изменение размеров фото
-var decControl = overlay.querySelector('.upload-resize-controls-button-dec');
-var incControl = overlay.querySelector('.upload-resize-controls-button-inc');
-var valControl = overlay.querySelector('.upload-resize-controls-value');
-var step = 25;
-window.initializeScale(decControl, step, valControl);
-window.initializeScale(incControl, step, valControl);
+var scaleElement = document.querySelector('.upload-resize-controls');
+var pictureElement = document.querySelector('.filter-image-preview');
+var SCALE_STEP = 25;
+var INITIAL_SCALE = 100;
+
+var adjustScale = function(scale) {
+  pictureElement.style.transform = 'scale(' + (scale + 45)/ 100 + ')';
+};
+
+window.initializeScale(scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale);
 
 // Переключение фильтров
 var filter = overlay.querySelector('.upload-filter-controls');
-window.initializeFilters(filter);
+var photo = overlay.querySelector('.upload-form-preview');
+var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
+
+var applyFilter = function(e) {
+  var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute('for'));
+  for (var j = 0; j < photoFilters.length; j++) {
+    photo.classList.remove(findFilter(photoFilters[j]));
+  }
+
+  photo.classList.add(activeFilter);
+  toggleRadio(activeFilter);
+}
+
+window.initializeFilters(filter, applyFilter);
