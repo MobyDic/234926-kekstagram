@@ -7,8 +7,8 @@ window.initializeScale = function (element, step, valCont) {
     var toggle = element.classList.contains('upload-resize-controls-button-dec');
     var nextval = (toggle) ? trimLast(val) - step : trimLast(val) + step;
 
-    if (nextval < 0) nextval = 0;
-    if (nextval > 100) nextval = 100;
+    if (nextval < 0) {nextval = 0; }
+    if (nextval > 100) {nextval = 100;}
 
     resize(nextval);
   });

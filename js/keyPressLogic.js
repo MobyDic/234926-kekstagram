@@ -6,7 +6,7 @@ window.isCloseEvent = (function (evt) {
   return function (evt) {
     return evt.keyCode === ESCAPE_KEY_CODE;
   };
-}) ();
+})();
 
 window.isActivateEvent = (function (evt) {
   var SPACE_KEY_CODE = 32;
@@ -15,4 +15,4 @@ window.isActivateEvent = (function (evt) {
   return function (evt) {
     return evt.keyCode && (evt.keyCode === ENTER_KEY_CODE || evt.keyCode === SPACE_KEY_CODE);
   };
-}) ();
+})();

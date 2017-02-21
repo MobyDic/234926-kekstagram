@@ -1,23 +1,20 @@
 'use strict';
 
-window.initializeFilters = (function () {
+window.initializeFilters = function (filter) {
+  filter.addEventListener('click', logicFilters);
 
-  return function () {
-    filter.addEventListener('click', logicFilters);
+  filter.addEventListener('keydown', function (evt) {
+    if (window.isActivateEvent(evt)) {
+      window.logicFilters(evt.target);
+    }
+  });
+};
 
-    filter.addEventListener('keydown', function (evt) {
-      if (window.isActivateEvent(evt)) {
-        window.logicFilters(evt.target);
-      }
-    });
-  }
-}) ();
-
-function logicFilters (e) {
+function logicFilters(e) {
   var photo = overlay.querySelector('.upload-form-preview');
   var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
 
-  var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute("for"));
+  var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute('for'));
   console.log(activeFilter);
 
   for (var j = 0; j < photoFilters.length; j++) {
@@ -25,22 +22,22 @@ function logicFilters (e) {
   }
 
   photo.classList.add(activeFilter);
-  toggleRadio(e.target);
+  toggleRadio(activeFilter);
 }
 
-function findFilter (filter) {
+function findFilter(filter) {
   return 'filter-' + filter.value;
 }
 
-function replaceFilter( filter) {
+function replaceFilter(filter) {
   return filter.replace('upload-','');
 }
 
-function toggleRadio (element) {
+function toggleRadio(attribute) {
   var filterLabels = filter.querySelectorAll('label');
 
   for (var k = 0; k < filterLabels.length; k++) {
-    filterLabels[k].setAttribute("aria-checked", "false");
+    if (filterLabels[k].getAttribute('for') === 'upload-' + attribute) {filterLabels[k].setAttribute('aria-checked', 'true');}
+    else {filterLabels[k].setAttribute('aria-checked', 'false');}
   }
-  element.setAttribute("aria-checked", "true");
 }
