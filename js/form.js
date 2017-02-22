@@ -34,7 +34,7 @@ var pictureElement = document.querySelector('.filter-image-preview');
 var SCALE_STEP = 25;
 var INITIAL_SCALE = 100;
 
-var adjustScale = function (scale) {
+var adjustScale = function(scale) {
   pictureElement.style.transform = 'scale(' + (scale + 45) / 100 + ')';
 };
 

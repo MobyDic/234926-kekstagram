@@ -12,7 +12,7 @@ window.initializeFilters = function (filterElement, applyFilter) {
 
 window.applyFilter = function (e) {
   var photo = document.querySelector('.upload-form-preview');
-  var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
+  var photoFilters = document.querySelectorAll('input[name="upload-filter"]');
 
   var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute('for'));
   for (var j = 0; j < photoFilters.length; j++) {
@@ -35,11 +35,11 @@ function toggleRadio(attribute) {
   var filterLabels = filter.querySelectorAll('label');
 
   for (var k = 0; k < filterLabels.length; k++) {
-    if (filterLabels[k].getAttribute('for') === 'upload-' + attribute) {
+    if (filterLabels[k].getAttribute('for') === 'upload-' + attribute)
+    {
       filterLabels[k].setAttribute('aria-checked', 'true');
     }
-    else
-    {
+    else {
       filterLabels[k].setAttribute('aria-checked', 'false');
     }
   }

@@ -1,13 +1,13 @@
 'use strict';
 
-window.initializeScale =  function(scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale) {
+window.initializeScale = function (scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale) {
   var scaleElementClassName = scaleElement.getAttribute('class');
   var decControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-dec');
   var incControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-inc');
   var valControl = scaleElement.querySelector('.' + scaleElementClassName + '-value');
 
   decControl.addEventListener('click', function () {
-    var nextval = trimLast(valControl.value) -  SCALE_STEP;
+    var nextval = trimLast(valControl.value) - SCALE_STEP;
     if (nextval < 0) {
       nextval = 0;
     }
@@ -16,7 +16,7 @@ window.initializeScale =  function(scaleElement, SCALE_STEP, INITIAL_SCALE, adju
   });
 
   incControl.addEventListener('click', function () {
-    var nextval = trimLast(valControl.value) +  SCALE_STEP;
+    var nextval = trimLast(valControl.value) + SCALE_STEP;
     if (nextval > INITIAL_SCALE) {
       nextval = INITIAL_SCALE;
     }
