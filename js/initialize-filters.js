@@ -10,6 +10,19 @@ window.initializeFilters = function (filterElement, applyFilter) {
   });
 };
 
+window.applyFilter = function (e) {
+  var photo = document.querySelector('.upload-form-preview');
+  var photoFilters = filter.querySelectorAll('input[name="upload-filter"]');
+
+  var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute('for'));
+  for (var j = 0; j < photoFilters.length; j++) {
+    photo.classList.remove(findFilter(photoFilters[j]));
+  }
+
+  photo.classList.add(activeFilter);
+  toggleRadio(activeFilter);
+};
+
 function findFilter(filter) {
   return 'filter-' + filter.value;
 }
