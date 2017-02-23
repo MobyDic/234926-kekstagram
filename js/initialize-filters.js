@@ -1,46 +1,48 @@
 'use strict';
 
-window.initializeFilters = function (filterElement, applyFilter) {
-  filterElement.addEventListener('click', applyFilter);
+(function() {
+  window.initializeFilters = function (filterElement, applyFilter) {
+    filterElement.addEventListener('click', applyFilter);
 
-  filterElement.addEventListener('keydown', function (evt) {
-    if (window.isActivateEvent(evt)) {
-      applyFilter(evt.target);
+    filterElement.addEventListener('keydown', function (evt) {
+      if (window.isActivateEvent(evt)) {
+        applyFilter(evt.target);
+      }
+    });
+  };
+
+  window.applyFilter = function (e) {
+    var photo = document.querySelector('.upload-form-preview');
+    var photoFilters = document.querySelectorAll('input[name="upload-filter"]');
+
+    var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute('for'));
+    for (var j = 0; j < photoFilters.length; j++) {
+      photo.classList.remove(findFilter(photoFilters[j]));
     }
-  });
-};
 
-window.applyFilter = function (e) {
-  var photo = document.querySelector('.upload-form-preview');
-  var photoFilters = document.querySelectorAll('input[name="upload-filter"]');
+    photo.classList.add(activeFilter);
+    toggleRadio(activeFilter);
+  };
 
-  var activeFilter = (e.type === 'click') ? findFilter(e.target) : replaceFilter(e.getAttribute('for'));
-  for (var j = 0; j < photoFilters.length; j++) {
-    photo.classList.remove(findFilter(photoFilters[j]));
+  function findFilter(filter) {
+    return 'filter-' + filter.value;
   }
 
-  photo.classList.add(activeFilter);
-  toggleRadio(activeFilter);
-};
+  function replaceFilter(filter) {
+    return filter.replace('upload-', '');
+  }
 
-function findFilter(filter) {
-  return 'filter-' + filter.value;
-}
+  function toggleRadio(attribute) {
+    var filterLabels = filter.querySelectorAll('label');
 
-function replaceFilter(filter) {
-  return filter.replace('upload-', '');
-}
-
-function toggleRadio(attribute) {
-  var filterLabels = filter.querySelectorAll('label');
-
-  for (var k = 0; k < filterLabels.length; k++) {
-    if (filterLabels[k].getAttribute('for') === 'upload-' + attribute)
-    {
-      filterLabels[k].setAttribute('aria-checked', 'true');
-    }
-    else {
-      filterLabels[k].setAttribute('aria-checked', 'false');
+    for (var k = 0; k < filterLabels.length; k++) {
+      if (filterLabels[k].getAttribute('for') === 'upload-' + attribute)
+      {
+        filterLabels[k].setAttribute('aria-checked', 'true');
+      }
+      else {
+        filterLabels[k].setAttribute('aria-checked', 'false');
+      }
     }
   }
-}
+}) ();
