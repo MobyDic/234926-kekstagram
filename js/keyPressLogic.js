@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   window.isCloseEvent = (function (evt) {
     var ESCAPE_KEY_CODE = 27;
 
@@ -17,4 +17,4 @@
       return evt.keyCode && (evt.keyCode === ENTER_KEY_CODE || evt.keyCode === SPACE_KEY_CODE);
     };
   })();
-}) ();
+} ) ();

@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   var overlay = document.querySelector('.upload-overlay');
   var selectImage = document.querySelector('#upload-select-image');
@@ -36,7 +36,7 @@
   var SCALE_STEP = 25;
   var INITIAL_SCALE = 100;
 
-  var adjustScale = function(scale) {
+  var adjustScale = function (scale) {
     pictureElement.style.transform = 'scale(' + (scale + 45) / 100 + ')';
   };
 
@@ -46,5 +46,5 @@
   var filter = overlay.querySelector('.upload-filter-controls');
   window.initializeFilters(filter, window.applyFilter);
 
-}) ();
+} ) ();
 

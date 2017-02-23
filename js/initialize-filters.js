@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   window.initializeFilters = function (filterElement, applyFilter) {
     filterElement.addEventListener('click', applyFilter);
 
@@ -45,4 +45,4 @@
       }
     }
   }
-}) ();
+} ) ();

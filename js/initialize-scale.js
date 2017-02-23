@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   window.initializeScale = function (scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale) {
     var scaleElementClassName = scaleElement.getAttribute('class');
     var decControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-dec');
@@ -29,4 +29,4 @@
   function trimLast(val) {
     return +val.substr(0, val.length - 1);
   }
-}) ();
+} ) ();
