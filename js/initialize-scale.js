@@ -29,4 +29,4 @@
   function trimLast(val) {
     return +val.substr(0, val.length - 1);
   }
-} ) ();
+})();

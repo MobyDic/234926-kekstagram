@@ -33,16 +33,14 @@
   }
 
   function toggleRadio(attribute) {
-    var filterLabels = filter.querySelectorAll('label');
+    var filterLabels = document.querySelectorAll('label');
 
     for (var k = 0; k < filterLabels.length; k++) {
-      if (filterLabels[k].getAttribute('for') === 'upload-' + attribute)
-      {
+      if (filterLabels[k].getAttribute('for') === 'upload-' + attribute) {
         filterLabels[k].setAttribute('aria-checked', 'true');
-      }
-      else {
+      } else {
         filterLabels[k].setAttribute('aria-checked', 'false');
       }
     }
   }
-} ) ();
+})();

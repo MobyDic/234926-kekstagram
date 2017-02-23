@@ -17,4 +17,4 @@
       return evt.keyCode && (evt.keyCode === ENTER_KEY_CODE || evt.keyCode === SPACE_KEY_CODE);
     };
   })();
-} ) ();
+})();

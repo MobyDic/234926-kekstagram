@@ -46,5 +46,5 @@
   var filter = overlay.querySelector('.upload-filter-controls');
   window.initializeFilters(filter, window.applyFilter);
 
-} ) ();
+})();
 
