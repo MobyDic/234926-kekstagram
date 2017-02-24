@@ -1,6 +1,6 @@
 'use strict';
 
-window.load = function () {
+window.load = (function () {
   return function (url, onLoad) {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoad);
@@ -11,4 +11,4 @@ window.load = function () {
     xhr.open('GET', url);
     xhr.send();
   };
-};
+})();
