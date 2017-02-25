@@ -1,26 +1,32 @@
 'use strict';
 
-window.initializeScale = function (element, step, valCont) {
+(function () {
+  window.initializeScale = function (scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale) {
+    var scaleElementClassName = scaleElement.getAttribute('class');
+    var decControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-dec');
+    var incControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-inc');
+    var valControl = scaleElement.querySelector('.' + scaleElementClassName + '-value');
 
-  element.addEventListener('click', function() {
-    var val = valCont.value;
-    var toggle = element.classList.contains('upload-resize-controls-button-dec');
-    var nextval = (toggle) ? trimLast(val) - step : trimLast(val) + step;
+    decControl.addEventListener('click', function () {
+      var nextval = trimLast(valControl.value) - SCALE_STEP;
+      if (nextval < 0) {
+        nextval = 0;
+      }
+      valControl.value = nextval + '%';
+      adjustScale(nextval);
+    });
 
-    if (nextval < 0) nextval = 0;
-    if (nextval > 100) nextval = 100;
+    incControl.addEventListener('click', function () {
+      var nextval = trimLast(valControl.value) + SCALE_STEP;
+      if (nextval > INITIAL_SCALE) {
+        nextval = INITIAL_SCALE;
+      }
+      valControl.value = nextval + '%';
+      adjustScale(nextval);
+    });
+  };
 
-    resize(nextval);
-  });
-}
-
-function trimLast (val) {
-  return +val.substr(0, val.length - 1);
-}
-
-function resize (size) {
-  var imagePreview = document.querySelector('.filter-image-preview');
-  var scale = (size + 45) / 100;
-  imagePreview.style.transform = 'scale(' + scale + ')';
-  valControl.value = size + '%';
-}
+  function trimLast(val) {
+    return +val.substr(0, val.length - 1);
+  }
+})();
