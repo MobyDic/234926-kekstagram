@@ -5,7 +5,7 @@ window.load = (function () {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoad);
     xhr.addEventListener('error', function () {
-      alert('Error load!!!');
+      document.write('Error load!!!');
     });
     xhr.responseType = 'json';
     xhr.open('GET', url);
