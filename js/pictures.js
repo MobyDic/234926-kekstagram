@@ -10,11 +10,11 @@
   function onLoad(evt) {
     var target = evt.target;
     var pictures = target.response;
-    //орисовка элементов на основе шаблона
+    // орисовка элементов на основе шаблона
     drawPictures(pictures);
 
     if (target.status !== 200) {
-      console.log(target.status + ': ' + target.statusText);
+      alert(target.status + ': ' + target.statusText);
       return;
     }
   }
@@ -25,12 +25,12 @@
     var elementToClone = templateElement.content.querySelector('.picture');
     var picturesContainer = document.querySelector('.pictures');
 
-    pictures.forEach(function(pictures) {
+    pictures.forEach(function (picturesArray) {
       var content = elementToClone.cloneNode(true);
 
-      content.querySelector('img').src = pictures.url;
-      content.querySelector('.picture-likes').textContent = pictures.likes;
-      content.querySelector('.picture-comments').textContent = pictures.comments.length;
+      content.querySelector('img').src = picturesArray.url;
+      content.querySelector('.picture-likes').textContent = picturesArray.likes;
+      content.querySelector('.picture-comments').textContent = picturesArray.comments.length;
 
       content.addEventListener('click', function (evt) {
         evt.preventDefault();

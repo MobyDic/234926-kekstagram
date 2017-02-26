@@ -26,9 +26,11 @@
   };
 
   function findFilter(filter) {
+    var valueFilter;
     if (filter.value) {
-      return 'filter-' + filter.value;
+      valueFilter = 'filter-' + filter.value;
     }
+    return valueFilter;
   }
 
   function replaceFilter(filter) {
