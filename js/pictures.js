@@ -23,7 +23,7 @@
     filters.classList.remove('hidden');
     filters.addEventListener('click', selectFilter);
 
-    //фильтр фото
+    // фильтр фото
     function selectFilter(e) {
       var element = e.target;
 
@@ -54,11 +54,11 @@
 
       content.querySelector('img').src = picturesArray.url;
       content.querySelector('.picture-likes').textContent = picturesArray.likes;
-      content.querySelector('.picture-comments').textContent = picturesArray.comments.length;;
+      content.querySelector('.picture-comments').textContent = picturesArray.comments.length;
 
       content.addEventListener('click', function (evt) {
         evt.preventDefault();
-        window.showGallery(elementToClone);
+        window.showGallery(picturesArray);
       });
       picturesContainer.appendChild(content);
 

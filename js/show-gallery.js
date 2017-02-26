@@ -18,7 +18,6 @@ window.showGallery = (function () {
 
   function hiddenGallery() {
     galleryOverlay.classList.add('invisible');
-    // document.removeEventListener('keydown', hiddenGalleryByEscape);
   }
 
   return function (data) {
@@ -27,6 +26,5 @@ window.showGallery = (function () {
     galleryLike.textContent = data.likes;
     galleryComments.textContent = data.comments.length;
     galleryClose.focus();
-    // galleryOverlay.addEventListener('keydown', hiddenGalleryByEscape);
   };
 })();
