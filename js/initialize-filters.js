@@ -19,13 +19,18 @@
     for (var j = 0; j < photoFilters.length; j++) {
       photo.classList.remove(findFilter(photoFilters[j]));
     }
-
-    photo.classList.add(activeFilter);
-    toggleRadio(activeFilter);
+    if (activeFilter) {
+      photo.classList.add(activeFilter);
+      toggleRadio(activeFilter);
+    }
   };
 
   function findFilter(filter) {
-    return 'filter-' + filter.value;
+    var valueFilter;
+    if (filter.value) {
+      valueFilter = 'filter-' + filter.value;
+    }
+    return valueFilter;
   }
 
   function replaceFilter(filter) {
