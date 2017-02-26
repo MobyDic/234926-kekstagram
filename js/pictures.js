@@ -34,10 +34,10 @@
           drawPictures(pictures);
           break;
         case 'new':
-          drawPictures(sortByNew(pictures));
+          drawPictures(sortNew(pictures));
           break;
         case 'discussed':
-          drawPictures(sortByDiscussed(pictures));
+          drawPictures(sortDiscussed(pictures));
           break;
       }
     }
@@ -66,7 +66,7 @@
 
   }
 
-  function sortByNew(array) {
+  function sortNew(array) {
     var newArray = array.slice();
     var sorted = [];
 
@@ -82,7 +82,7 @@
     return sorted;
   }
 
-  function sortByDiscussed(array) {
+  function sortDiscussed(array) {
     var sorted = array.slice();
     sorted.sort(function (a, b) {
       return b.comments.length - a.comments.length;
