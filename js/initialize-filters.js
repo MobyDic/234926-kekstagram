@@ -7,6 +7,8 @@
     filterElement.addEventListener('keydown', function (evt) {
       if (window.isActivateEvent(evt)) {
         applyFilter(evt.target);
+        var activeRadio = evt.target.previousElementSibling;
+        activeRadio.checked = true;
       }
     });
   };

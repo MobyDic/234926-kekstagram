@@ -6,11 +6,13 @@
     var decControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-dec');
     var incControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-inc');
     var valControl = scaleElement.querySelector('.' + scaleElementClassName + '-value');
+    adjustScale(INITIAL_SCALE);
+    valControl.value = '100%';  // вставить по ТЗ
 
     decControl.addEventListener('click', function () {
       var nextval = trimLast(valControl.value) - SCALE_STEP;
-      if (nextval < 0) {
-        nextval = 0;
+      if (nextval < 25) {
+        nextval = 25;
       }
       valControl.value = nextval + '%';
       adjustScale(nextval);

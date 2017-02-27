@@ -37,7 +37,7 @@
   var INITIAL_SCALE = 100;
 
   var adjustScale = function (scale) {
-    pictureElement.style.transform = 'scale(' + (scale + 45) / 100 + ')';
+    pictureElement.style.transform = 'scale(' + scale / 100 + ')';
   };
 
   window.initializeScale(scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale);
