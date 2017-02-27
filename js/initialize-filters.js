@@ -6,6 +6,7 @@
 
     filterElement.addEventListener('keydown', function (evt) {
       if (window.isActivateEvent(evt)) {
+        console.log(evt.target);
         applyFilter(evt.target);
       }
     });
