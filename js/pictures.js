@@ -26,19 +26,20 @@
     // фильтр фото
     function selectFilter(e) {
       var element = e.target;
+      if (element.className !== 'filters') {
+        picturesContainer.innerHTML = '';
 
-      picturesContainer.innerHTML = '';
-
-      switch (element.value) {
-        case 'popular':
-          drawPictures(pictures);
-          break;
-        case 'new':
-          drawPictures(sortNew(pictures));
-          break;
-        case 'discussed':
-          drawPictures(sortDiscussed(pictures));
-          break;
+        switch (element.value) {
+          case 'popular':
+            drawPictures(pictures);
+            break;
+          case 'new':
+            drawPictures(sortNew(pictures));
+            break;
+          case 'discussed':
+            drawPictures(sortDiscussed(pictures));
+            break;
+        }
       }
     }
 
