@@ -7,7 +7,7 @@
     var incControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-inc');
     var valControl = scaleElement.querySelector('.' + scaleElementClassName + '-value');
     adjustScale(INITIAL_SCALE);
-    valControl.value = '100%';  // вставить по ТЗ
+    valControl.value = '100%';
 
     decControl.addEventListener('click', function () {
       var nextval = trimLast(valControl.value) - SCALE_STEP;

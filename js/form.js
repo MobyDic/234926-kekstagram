@@ -25,8 +25,9 @@
   }
 
   function hideFormElement() {
-    overlay.classList.add('invisible');
     selectImage.classList.remove('invisible');
+    overlay.classList.add('invisible');
+    uploadFile.value = '';
   }
 
 
@@ -44,7 +45,7 @@
 
   // Переключение фильтров
   var filter = overlay.querySelector('.upload-filter-controls');
-  window.initializeFilters(filter, window.applyFilter);
+  window.initializeFilters(filter);
 
 })();
 

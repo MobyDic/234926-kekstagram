@@ -1,19 +1,8 @@
 'use strict';
 
 (function () {
-  window.initializeFilters = function (filterElement, applyFilter) {
-    filterElement.addEventListener('click', applyFilter);
 
-    filterElement.addEventListener('keydown', function (evt) {
-      if (window.isActivateEvent(evt)) {
-        applyFilter(evt.target);
-        var activeRadio = evt.target.previousElementSibling;
-        activeRadio.checked = true;
-      }
-    });
-  };
-
-  window.applyFilter = function (e) {
+  var applyFilter = function (e) {
     var photo = document.querySelector('.upload-form-preview');
     var photoFilters = document.querySelectorAll('input[name="upload-filter"]');
 
@@ -25,6 +14,18 @@
       photo.classList.add(activeFilter);
       toggleRadio(activeFilter);
     }
+  };
+
+  window.initializeFilters = function (filterElement) {
+    filterElement.addEventListener('click', applyFilter);
+
+    filterElement.addEventListener('keydown', function (evt) {
+      if (window.isActivateEvent(evt)) {
+        applyFilter(evt.target);
+        var activeRadio = evt.target.previousElementSibling;
+        activeRadio.checked = true;
+      }
+    });
   };
 
   function findFilter(filter) {
