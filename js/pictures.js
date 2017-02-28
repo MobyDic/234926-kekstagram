@@ -28,7 +28,10 @@
       var element = e.target;
       if (element.className !== 'filters') {
         picturesContainer.innerHTML = '';
-
+        picturesContainer.removeEventListener('click', function (evt) {
+          evt.preventDefault();
+          window.showGallery(pictures);
+        });
         switch (element.value) {
           case 'popular':
             drawPictures(pictures);

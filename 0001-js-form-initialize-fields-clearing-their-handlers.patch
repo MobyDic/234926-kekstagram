@@ -1,0 +1,118 @@
+From a8056c7c9dcb33863b0fbd058c1e25abf06e0896 Mon Sep 17 00:00:00 2001
+From: Victor <vichugunov@gmail.com>
+Date: Wed, 1 Mar 2017 01:14:09 +0300
+Subject: [PATCH] [js] form & initialize fields clearing their handlers
+
+---
+ js/form.js             | 20 ++++++++++----------
+ js/initialize-scale.js | 22 ++++++++++++++++++----
+ 2 files changed, 28 insertions(+), 14 deletions(-)
+
+diff --git a/js/form.js b/js/form.js
+index b76bd9b..a25afc7 100644
+--- a/js/form.js
++++ b/js/form.js
+@@ -7,8 +7,11 @@
+   var uploadFile = document.querySelector('#upload-file');
+   var formCancel = overlay.querySelector('.upload-form-cancel');
+ 
+-  // открытие - закрытие формы
+-  hideFormElement();
++  // Изменение размеров фото
++  var scaleElement = document.querySelector('.upload-resize-controls');
++  var pictureElement = document.querySelector('.filter-image-preview');
++  var SCALE_STEP = 25;
++  var INITIAL_SCALE = 100;
+ 
+   uploadFile.addEventListener('change', openFormElement);
+   formCancel.addEventListener('click', hideFormElement);
+@@ -22,26 +25,23 @@
+   function openFormElement() {
+     overlay.classList.remove('invisible');
+     selectImage.classList.add('invisible');
++    window.initializeScale(scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale);
+   }
+ 
+   function hideFormElement() {
++    window.unsubscribeScaleHandlers(scaleElement);
+     selectImage.classList.remove('invisible');
+     overlay.classList.add('invisible');
+     uploadFile.value = '';
+   }
+ 
+-
+-  // Изменение размеров фото
+-  var scaleElement = document.querySelector('.upload-resize-controls');
+-  var pictureElement = document.querySelector('.filter-image-preview');
+-  var SCALE_STEP = 25;
+-  var INITIAL_SCALE = 100;
+-
+   var adjustScale = function (scale) {
+     pictureElement.style.transform = 'scale(' + scale / 100 + ')';
+   };
+ 
+-  window.initializeScale(scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale);
++
++  hideFormElement();
++  //window.initializeScale(scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale);
+ 
+   // Переключение фильтров
+   var filter = overlay.querySelector('.upload-filter-controls');
+diff --git a/js/initialize-scale.js b/js/initialize-scale.js
+index 95e524b..519d33c 100644
+--- a/js/initialize-scale.js
++++ b/js/initialize-scale.js
+@@ -1,6 +1,8 @@
+ 'use strict';
+ 
+ (function () {
++  var decControlHandler;
++  var incControlHandler;
+   window.initializeScale = function (scaleElement, SCALE_STEP, INITIAL_SCALE, adjustScale) {
+     var scaleElementClassName = scaleElement.getAttribute('class');
+     var decControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-dec');
+@@ -9,25 +11,37 @@
+     adjustScale(INITIAL_SCALE);
+     valControl.value = '100%';
+ 
+-    decControl.addEventListener('click', function () {
++    decControlHandler = function () {
+       var nextval = trimLast(valControl.value) - SCALE_STEP;
+       if (nextval < 25) {
+         nextval = 25;
+       }
+       valControl.value = nextval + '%';
+       adjustScale(nextval);
+-    });
++    };
++    decControl.addEventListener('click', decControlHandler);
+ 
+-    incControl.addEventListener('click', function () {
++    incControlHandler = function () {
+       var nextval = trimLast(valControl.value) + SCALE_STEP;
+       if (nextval > INITIAL_SCALE) {
+         nextval = INITIAL_SCALE;
+       }
+       valControl.value = nextval + '%';
+       adjustScale(nextval);
+-    });
++    }
++    incControl.addEventListener('click', incControlHandler);
+   };
+ 
++  window.unsubscribeScaleHandlers = function(scaleElement) {
++    var scaleElementClassName = scaleElement.getAttribute('class');
++    var decControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-dec');
++    var incControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-inc');
++    var valControl = scaleElement.querySelector('.' + scaleElementClassName + '-value');
++
++    decControl.removeEventListener('click', decControlHandler);
++    incControl.removeEventListener('click', incControlHandler);
++  }
++
+   function trimLast(val) {
+     return +val.substr(0, val.length - 1);
+   }
+-- 
+2.11.1
+
