@@ -16,16 +16,27 @@
     }
   };
 
-  window.initializeFilters = function (filterElement) {
-    filterElement.addEventListener('click', applyFilter);
+  var applyFilterOnPress = function (evt) {
+    if (window.isActivateEvent(evt)) {
+      applyFilter(evt.target);
+      var activeRadio = evt.target.previousElementSibling;
+      activeRadio.checked = true;
+    }
+  };
 
-    filterElement.addEventListener('keydown', function (evt) {
-      if (window.isActivateEvent(evt)) {
-        applyFilter(evt.target);
-        var activeRadio = evt.target.previousElementSibling;
-        activeRadio.checked = true;
-      }
-    });
+  window.initializeFilters = function (filterElement) {
+    var filterDefault = filterElement.querySelector('[for="upload-filter-none"]');
+    var radioDefault = filterDefault.previousElementSibling;
+    radioDefault.checked = true;
+    applyFilter(filterDefault);
+
+    filterElement.addEventListener('click', applyFilter);
+    filterElement.addEventListener('keydown', applyFilterOnPress);
+  };
+
+  window.unsubscribeFiltersHandlers = function(filterElement) {
+    filterElement.removeEventListener('click', applyFilter);
+    filterElement.removeEventListener('keydown', applyFilterOnPress);
   };
 
   function findFilter(filter) {
