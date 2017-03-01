@@ -34,7 +34,7 @@
     filterElement.addEventListener('keydown', applyFilterOnPress);
   };
 
-  window.unsubscribeFiltersHandlers = function(filterElement) {
+  window.unsubscribeFiltersHandlers = function (filterElement) {
     filterElement.removeEventListener('click', applyFilter);
     filterElement.removeEventListener('keydown', applyFilterOnPress);
   };

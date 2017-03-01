@@ -28,19 +28,18 @@
       }
       valControl.value = nextval + '%';
       adjustScale(nextval);
-    }
+    };
     incControl.addEventListener('click', incControlHandler);
   };
 
-  window.unsubscribeScaleHandlers = function(scaleElement) {
+  window.unsubscribeScaleHandlers = function (scaleElement) {
     var scaleElementClassName = scaleElement.getAttribute('class');
     var decControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-dec');
     var incControl = scaleElement.querySelector('.' + scaleElementClassName + '-button-inc');
-    var valControl = scaleElement.querySelector('.' + scaleElementClassName + '-value');
 
     decControl.removeEventListener('click', decControlHandler);
     incControl.removeEventListener('click', incControlHandler);
-  }
+  };
 
   function trimLast(val) {
     return +val.substr(0, val.length - 1);
