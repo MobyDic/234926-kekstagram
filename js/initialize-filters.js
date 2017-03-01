@@ -1,19 +1,8 @@
 'use strict';
 
 (function () {
-  window.initializeFilters = function (filterElement, applyFilter) {
-    filterElement.addEventListener('click', applyFilter);
 
-    filterElement.addEventListener('keydown', function (evt) {
-      if (window.isActivateEvent(evt)) {
-        applyFilter(evt.target);
-        var activeRadio = evt.target.previousElementSibling;
-        activeRadio.checked = true;
-      }
-    });
-  };
-
-  window.applyFilter = function (e) {
+  var applyFilter = function (e) {
     var photo = document.querySelector('.upload-form-preview');
     var photoFilters = document.querySelectorAll('input[name="upload-filter"]');
 
@@ -25,6 +14,29 @@
       photo.classList.add(activeFilter);
       toggleRadio(activeFilter);
     }
+  };
+
+  var applyFilterOnPress = function (evt) {
+    if (window.isActivateEvent(evt)) {
+      applyFilter(evt.target);
+      var activeRadio = evt.target.previousElementSibling;
+      activeRadio.checked = true;
+    }
+  };
+
+  window.initializeFilters = function (filterElement) {
+    var filterDefault = filterElement.querySelector('[for="upload-filter-none"]');
+    var radioDefault = filterDefault.previousElementSibling;
+    radioDefault.checked = true;
+    applyFilter(filterDefault);
+
+    filterElement.addEventListener('click', applyFilter);
+    filterElement.addEventListener('keydown', applyFilterOnPress);
+  };
+
+  window.unsubscribeFiltersHandlers = function (filterElement) {
+    filterElement.removeEventListener('click', applyFilter);
+    filterElement.removeEventListener('keydown', applyFilterOnPress);
   };
 
   function findFilter(filter) {

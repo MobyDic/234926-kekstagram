@@ -28,7 +28,6 @@
       var element = e.target;
       if (element.className !== 'filters') {
         picturesContainer.innerHTML = '';
-
         switch (element.value) {
           case 'popular':
             drawPictures(pictures);
@@ -62,17 +61,16 @@
         window.showGallery(picturesArray);
       });
       picturesContainer.appendChild(content);
-
     });
-
   }
 
-  function sortNew(array) {
-    var newArray = array.slice();
+
+  function sortNew(arraySort) {
+    var newArray = arraySort.slice();
     var sorted = [];
 
     while (sorted.length < 10) {
-      var element = newArray[Math.floor(Math.random() * array.length)];
+      var element = newArray[Math.floor(Math.random() * arraySort.length)];
       var index = sorted.indexOf(element);
 
       if (index === -1) {
@@ -83,8 +81,8 @@
     return sorted;
   }
 
-  function sortDiscussed(array) {
-    var sorted = array.slice();
+  function sortDiscussed(arraySort) {
+    var sorted = arraySort.slice();
     sorted.sort(function (a, b) {
       return b.comments.length - a.comments.length;
     });
